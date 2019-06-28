@@ -81,7 +81,7 @@ def prepareSettingsXml(nexus_username, nexus_password) {
         <mirror>
         <id>nexus</id>
         <mirrorOf>*</mirrorOf>
-        <url>http://nexus-cimb-infra.apps.cimb1.rht-labs.com/repository/maven-public/</url>
+        <url>http://nexus-cimb-nexus.apps.cimb1.rht-labs.com/repository/maven-public/</url>
         </mirror>
     </mirrors>
     <profiles>
