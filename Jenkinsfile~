@@ -1,6 +1,7 @@
 def git_repo = 'http://gogs-cimb-infra.apps.cimb.rht-labs.com/muttaqin/esb-mini.git'
 def git_branch = 'master'
-def nexus_repo = 'http://nexus-cimb-nexus.apps.cimb1.rht-labs.com/repository/cimb-niaga-apps/'
+def nexus_repo = 'http://nexus-cimb-infra.apps.cimb.rht-labs.com/repository/cimb-niaga-apps/'
+
 
 node ('maven'){
     stage('Checkout') {
