@@ -117,7 +117,7 @@ node ('maven'){
                 -p LIMIT_CPU='0.8' -p LIMIT_MEMORY='1024Mi' \
                 -p REQUEST_CPU='0.5' -p REQUEST_MEMORY='512Mi' \
                 | oc apply -n ${ocp_project} --force=true -f -
-            
+            sleep 5
             """
 
         if (public_route_prefix != null && public_route_prefix != ''){
@@ -130,7 +130,7 @@ node ('maven'){
                     -p APP_NAME=${appName} -p APP_FULL_VERSION=${appFullVersion} -p APP_MAJOR_VERSION=${appMajorVersion}  \
                     -p GIT_COMMIT_ID=${gitCommitId} -p PUBLIC_ROUTE_PREFIX=${public_route_prefix} -p JENKINS_BUILD_NUMBER=${BUILD_NUMBER} \
                     | oc apply -n ${ocp_project} --force=true -f -
-                
+                sleep 5
                 """
         }
 
