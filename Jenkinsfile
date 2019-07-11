@@ -1,4 +1,4 @@
-def git_repo = 'http://gogs-cimb-gogs.apps.cimb1.rht-labs.com/muttaqin/user-authentication-svc-news.git'
+def git_repo = 'http://gogs-cimb-gogs.apps.cimb1.rht-labs.com/muttaqin/esb-mini.git'
 def public_route_prefix = ''
 
 def max_replica_count = 1
