@@ -74,7 +74,7 @@ node ('maven'){
 
                 oc project ${ocp_project}
                 oc process -f ./cicd-template/openshift/build-config-template.yaml -n ${ocp_project} \
-                -p S2I_BUILD_IMAGE='openjdk11-cimb:1.0.0' -p S2I_BUILD_IMAGE_PULL_SECRET='' \
+                -p S2I_BUILD_IMAGE='openjdk11-cimb:1.0.0' -p S2I_BUILD_IMAGE_PULL_SECRET='12468372-fortesting-pull-secret' \
                 -p APP_NAME='${appName}' -p APP_FULL_VERSION='${appFullVersion}' -p APP_MAJOR_VERSION='${appMajorVersion}' \
                 -p GIT_COMMIT_ID=${gitCommitId} -p JENKINS_BUILD_NUMBER=${BUILD_NUMBER}  \
                 | oc apply -n ${ocp_project} -f -
