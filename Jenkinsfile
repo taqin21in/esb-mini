@@ -11,7 +11,7 @@ def git_branch = 'master'
 def nexus_base_url = 'http://nexus-cimb-nexus.apps.cimb1.rht-labs.com'
 def nexus_deps_repo = "$nexus_base_url/repository/maven-all-public/"
 def nexus_deploy_repo = "$nexus_base_url/repository/cimb-niaga-apps/"
-def ocp_project = 'isocimb-image'
+def ocp_project = 'cimb-apps'
 
 
 def appName
