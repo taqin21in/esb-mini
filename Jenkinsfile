@@ -11,7 +11,7 @@ def git_branch = 'master'
 def nexus_base_url = 'http://nexus-cimb-nexus.apps.cimb1.rht-labs.com'
 def nexus_deps_repo = "$nexus_base_url/repository/maven-all-public/"
 def nexus_deploy_repo = "$nexus_base_url/repository/cimb-niaga-apps/"
-def ocp_project = 'cimb-image'
+def ocp_project = 'isocimb-apps'
 
 
 def appName
@@ -74,7 +74,7 @@ node ('maven'){
 
                 oc project ${ocp_project}
                 oc process -f ./cicd-template/openshift/build-config-template.yaml -n ${ocp_project} \
-                -p S2I_BUILD_IMAGE='openjdk11-cimb:1.0.0' -p S2I_BUILD_IMAGE_PULL_SECRET='12468372-fortesting-pull-secret' \
+                -p S2I_BUILD_IMAGE='openjdk11-cimb-v3-11:1.0' -p S2I_BUILD_IMAGE_PULL_SECRET='12468372-fortesting-pull-secret' \
                 -p APP_NAME='${appName}' -p APP_FULL_VERSION='${appFullVersion}' -p APP_MAJOR_VERSION='${appMajorVersion}' \
                 -p GIT_COMMIT_ID=${gitCommitId} -p JENKINS_BUILD_NUMBER=${BUILD_NUMBER}  \
                 | oc apply -n ${ocp_project} -f -
