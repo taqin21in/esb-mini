@@ -45,8 +45,8 @@ pipeline {
         stage('Push Image') {
         steps {
             bat '''
-            docker tag springboot-demo:1.0 localhost:8083/springboot-demo:1.0
-            docker push localhost:8083/springboot-demo:1.0
+            docker tag springboot-demo:1.0 localhost:8082/springboot-demo:1.0
+            docker push localhost:8082/springboot-demo:1.0
             '''
         }
         }
@@ -57,7 +57,7 @@ pipeline {
             docker run -d ^
                 --name springboot-demo ^
                 -p 8080:8080 ^
-                localhost:8083/springboot-demo:1.0
+                localhost:8082/springboot-demo:1.0
             '''
         }
         }
