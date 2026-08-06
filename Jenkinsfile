@@ -3,6 +3,12 @@ pipeline {
 
     stages {
         
+        stage('Check POM') {
+        steps {
+            bat 'dir'
+            bat 'type pom.xml'
+        }
+        }
         stage('Check Docker') {
             steps {
                 bat 'docker version'
