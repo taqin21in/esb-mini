@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "host.docker.internal:8082/docker-hosted/springboot-demo"
+        IMAGE_TAG  = "1.0"
+    }
+
     stages {
         
         stage('Check POM') {
@@ -37,16 +42,33 @@ pipeline {
             bat 'mvn clean package -DskipTests'
         }
         }
-        stage('Build Docker Image') {
+        stage('Docker Login') {
         steps {
-            bat 'docker build -t springboot-demo:1.0 .'
+            withCredentials([usernamePassword(
+                credentialsId: 'nexus-credential',
+                usernameVariable: 'USERNAME',
+                passwordVariable: 'PASSWORD'
+            )]) {
+
+                bat '''
+                docker login host.docker.internal:8082 ^
+                -u %USERNAME% ^
+                -p %PASSWORD%
+                '''
+            }
+        }
+        }
+       stage('Build Docker Image') {
+       steps {
+            bat '''
+            docker build -t %IMAGE_NAME%:%IMAGE_TAG% .
+            '''
         }
         }
         stage('Push Image') {
         steps {
             bat '''
-            docker tag springboot-demo:1.0 localhost:8082/springboot-demo:1.0
-            docker push localhost:8082/springboot-demo:1.0
+            docker push %IMAGE_NAME%:%IMAGE_TAG%
             '''
         }
         }
@@ -54,17 +76,35 @@ pipeline {
         steps {
             bat '''
             docker rm -f springboot-demo || exit 0
+
             docker run -d ^
                 --name springboot-demo ^
                 -p 8080:8080 ^
-                localhost:8082/springboot-demo:1.0
+                %IMAGE_NAME%:%IMAGE_TAG%
             '''
         }
         }
 
         stage('Verify Deployment') {
         steps {
-            bat 'docker ps'
+            bat '''
+            docker ps
+            docker images
+            '''
+        }
+        }
+
+        post {
+        success {
+            echo 'Pipeline SUCCESS'
+        }
+
+        failure {
+            echo 'Pipeline FAILED'
+        }
+
+        always {
+            cleanWs()
         }
         }
 
